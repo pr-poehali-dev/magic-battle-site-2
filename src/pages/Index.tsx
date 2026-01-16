@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -9,6 +9,9 @@ import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const worldSectionRef = useRef<HTMLDivElement>(null);
+  const communitySectionRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState('characters');
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -366,15 +369,35 @@ const Index = () => {
             Добро пожаловать в мир проклятий, магических сражений и темных тайн
           </p>
           <div className="flex gap-6 justify-center flex-wrap">
-            <Button size="lg" className="hover-glow text-lg px-8 py-6">
+            <Button 
+              size="lg" 
+              className="hover-glow text-lg px-8 py-6"
+              onClick={() => {
+                setActiveTab('world');
+                worldSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
               <Icon name="Flame" className="mr-2" size={24} />
               Исследовать мир
             </Button>
-            <Button size="lg" variant="outline" className="hover-glow text-lg px-8 py-6">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="hover-glow text-lg px-8 py-6"
+              onClick={() => {
+                setActiveTab('community');
+                communitySectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
               <Icon name="Users" className="mr-2" size={24} />
               Присоединиться
             </Button>
-            <Button size="lg" variant="secondary" className="hover-glow text-lg px-8 py-6">
+            <Button 
+              size="lg" 
+              variant="secondary" 
+              className="hover-glow text-lg px-8 py-6"
+              onClick={() => window.open('https://mangalib.me/jujutsu-kaisen', '_blank')}
+            >
               <Icon name="BookOpen" className="mr-2" size={24} />
               Читать мангу
             </Button>
@@ -382,8 +405,8 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <Tabs defaultValue="characters" className="w-full">
+      <div className="max-w-7xl mx-auto px-4 py-20" ref={worldSectionRef}>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 mb-12 h-auto">
             <TabsTrigger value="characters" className="text-sm md:text-base py-3">
               <Icon name="Users" className="mr-2" size={18} />
@@ -647,7 +670,7 @@ const Index = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="world">
+          <TabsContent value="world" ref={worldSectionRef}>
             <div className="mb-8 text-center">
               <h2 className="text-4xl font-bold glow-purple mb-4">Мир Магической битвы</h2>
               <p className="text-muted-foreground text-lg">Основы лора и механики вселенной</p>
@@ -670,7 +693,7 @@ const Index = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="community">
+          <TabsContent value="community" ref={communitySectionRef}>
             <div className="mb-8 text-center">
               <h2 className="text-4xl font-bold glow-purple mb-4">Сообщество фанатов</h2>
               <p className="text-muted-foreground text-lg">Обсуждайте теории, делитесь мыслями о Магической битве</p>
