@@ -86,7 +86,7 @@ const Index = () => {
     {
       name: 'Рёмен Сукуна',
       role: 'Король проклятий',
-      power: 'Малеволент Шрайн',
+      power: 'Гробница зла',
       grade: 'Особое проклятие',
       description: 'Древнейший и сильнейший маг в истории',
       stats: { strength: 100, speed: 95, technique: 100, intelligence: 100 },
@@ -105,7 +105,7 @@ const Index = () => {
       power: 100,
     },
     {
-      name: 'Малеволент Шрайн',
+      name: 'Гробница зла',
       user: 'Рёмен Сукуна',
       description: 'Техника расчленения с двумя типами атак: Cleave и Dismantle',
       type: 'Расширение домена',
